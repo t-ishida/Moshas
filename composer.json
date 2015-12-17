@@ -1,0 +1,34 @@
+{
+    "name": "t_ishida/moshas",
+    "description": "yet another crawler framework",
+    "license": "MIT License",
+    "repositories":[
+        {
+            "url": "https://github.com/t-ishida/loula.git",
+            "type": "git"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Takeshi Ishida",
+            "email": "ishida@aainc.co.jp"
+        }
+    ],
+    "autoload" : {
+        "psr-4" : {
+            "Moshas\\" : "src/Moshas",
+            "DDP\\" : "src/DDP"
+        }
+    },
+    "require" : {
+        "t_ishida/loula": "dev-master"
+    },
+    "require-dev": {
+        "phake/phake": "2.*",
+        "PHPUnit/phpunit": "*",
+        "phpdocumentor/phpdocumentor" : "*",
+        "sebastian/phpcpd" : "*",
+        "phpmd/phpmd" : "*",
+        "squizlabs/php_codesniffer": "2.*"
+    }
+}
