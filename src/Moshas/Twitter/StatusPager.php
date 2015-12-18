@@ -26,6 +26,7 @@ abstract class StatusPager implements Client
                 $entity->setCreatedAt($row->created_at);
                 $entity->setUserName($row->user->screen_name);
                 $entity->setProfileImageUrl($row->user->profile_image_url_https);
+                $entity->setUrl('https://twitter.com/' . urlencode($row->user->screen_name) . '/statuses/' . urlencode($row->id));
                 $result[] = $entity;
                 $maxId = intval($row->id_str) - 1;
             }
