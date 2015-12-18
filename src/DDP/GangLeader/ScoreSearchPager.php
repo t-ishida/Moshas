@@ -6,7 +6,7 @@ use Moshas\Twitter\TwitterClient;
 
 class ScoreSearchPager extends SearchWordPager
 {
-    public function __construct(TwitterClient $client, $barer = null, $difficulty = null, $stage = null)
+    public function __construct(TwitterClient $client, $difficulty = null, $stage = null)
     {
         $keyword = '怒首領蜂一面番長 Score ステージ ファイター 難易度';
         if ($stage)      $keyword .= ' ' . $stage;
