@@ -27,7 +27,7 @@ abstract class StatusPager implements Client
                 $entity->setUserName($row->user->screen_name);
                 $entity->setProfileImageUrl($row->user->profile_image_url_https);
                 $result[] = $entity;
-                $maxId = $row->id_str;
+                $maxId = intval($row->id_str) - 1;
             }
         }
         return $result;
