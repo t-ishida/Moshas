@@ -1,4 +1,5 @@
 .idea/*
 *.iml
 .twitter
+.yahoo
 /vendor/
