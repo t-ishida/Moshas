@@ -23,6 +23,7 @@ return (object)array (
 );
 <?php
 }
+ini_set('memory_limit', '2048M');
 require __DIR__ . '/../vendor/autoload.php';
 $yahooConfig   = require $yahooPath;
 $twitterConfig = require $twitterPath;
@@ -35,30 +36,57 @@ try {
     $twitterConfig->bearer = $client->getBearerToken();
     file_put_contents($twitterPath, "<?php return (object)" . var_export((array)$twitterConfig, true) . ';');
     $crawler = new \Moshas\Crawler(
-        array(new \Moshas\Twitter\SearchWordPager($client, 'ロザリーはまな板乙女')),
+        array(new \Moshas\Twitter\SearchWordPager($client, '#ゴ魔乙 OR ゴシックは魔法乙女 OR ゴ魔乙 OR #ゴシックは魔法乙女')),
         array(new \Moshas\Text\Analyzer(new \Moshas\Text\Parse\Yahoo($yahooConfig->appId, $yahooConfig->appSecret)))
     );
 
-    echo "<<TWEET>>\n";
-    $result = array();
-    foreach ($crawler->execute() as $tweet) {
-        echo $tweet->getBody() . "\n";
+    $words = array();
+    $users = array();
+    $tweets = $crawler->execute();
+    foreach ($tweets as $tweet) {
+        $users[$tweet->getUserName()] = 1;
         foreach ($tweet->getWords() as $word) {
-            if (!isset($result[$word->getPart()])) {
-                $result[$word->getPart()] = array();
+            if ($word->getPart() !== '名詞') continue;
+            if (!isset($words[$word->getSurface()])) {
+                $words[$word->getSurface()] = 0;
             }
-            if (!isset($result[$word->getPart()][$word->getSurface()])) {
-                $result[$word->getPart()][$word->getSurface()] = 0;
-            }
-            $result[$word->getPart()][$word->getSurface()]++;
+            $words[$word->getSurface()]++;
         }
     }
-    arsort($result['名詞']);
-    echo "<<WORD>>\n";
-    $i = 1;
-    foreach($result['名詞'] as $key => $val) {
-        echo $i++ . ": $key => $val\n";
+    $i = 0;
+    $wordKeys = array_keys($words);
+    $wordDictionary = array();
+    foreach ($wordKeys as $key) {
+        $wordDictionary[$key] = $i++;
     }
+    $i = 0;
+    $userKeys = array_keys($users);
+    $userDictionary = array();
+    foreach ($userKeys as $key) {
+        $userDictionary[$key] = $i++;
+    }
+    unset($words);
+    unset($users);
+    $data = array();
+    $rowNames = array();
+    echo "<<TWEET>>\n";
+    foreach ($tweets as $tweet) {
+        $row = null;
+        if (isset($data[$userDictionary[$tweet->getUserName()]])) {
+            $row = $data[$userDictionary[$tweet->getUserName()]];
+        } else {
+            $row = array();
+            foreach($wordKeys as $key) {
+                $row[] = 0;
+            }
+        }
+        foreach ($tweet->getWords() as $word) {
+            if ($word->getPart() !== '名詞') continue;
+            $row[$wordDictionary[$word->getSurface()]]++;
+        }
+        $data[$userDictionary[$tweet->getUserName()]] = $row;
+    }
+    print new \Inpas\Clustering(new \Inpas\Matrix($data, $wordKeys, $userKeys));
 } catch (\Exception $e) {
     var_dump($e);
 }
