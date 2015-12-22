@@ -11,7 +11,6 @@ class Clustering
 
     public function calc($k)
     {
-        $data = $this->data->getInnerArray();
         if ($k <= 0) {
             throw new \InvalidArgumentException("ERROR: K must be a positive integer greater than 0");
         }
@@ -56,6 +55,7 @@ class Clustering
                 $axis[$a] += $k[$columnKeys[$a]];
             }
         }
+        $center = array();
         for ($a = 0; $a < $dim; $a++) {
             $center[$a] = round($axis[$a] / count($coords), 2);
         }
