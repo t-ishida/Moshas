@@ -8,10 +8,17 @@ class Entity
     private $body = null;
     private $url = null;
     private $createdAt = null;
-    public function __construct()
-    {
 
+    public function __construct($userName = null, $profileImageUrl = null, $subject = null, $body = null, $url = null, $createdAt = null)
+    {
+        $this->userName = $userName;
+        $this->url = $url;
+        $this->subject = $subject;
+        $this->profileImageUrl = $profileImageUrl;
+        $this->createdAt = $createdAt;
+        $this->body = $body;
     }
+
     public function setBody($body)
     {
         $this->body = $body;

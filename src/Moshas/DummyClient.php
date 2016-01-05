@@ -7,7 +7,16 @@
 namespace Moshas;
 
 
-class DummyClient 
+class DummyClient implements Client
 {
+    private $entities = null;
+    public function __construct (array $entities)
+    {
+        $this->entities = $entities;
+    }
 
+    public function run()
+    {
+        return $this->entities;
+    }
 }

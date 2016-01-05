@@ -9,6 +9,7 @@ return (object)array(
     'appSecret' => 'your appSecret',
 );
 <?php
+    die;
 }
 
 $twitterPath = __DIR__ . '/../.twitter';
@@ -22,6 +23,7 @@ return (object)array (
     'bearer' => 'your bearer',
 );
 <?php
+    die;
 }
 ini_set('memory_limit', '2048M');
 require __DIR__ . '/../vendor/autoload.php';
