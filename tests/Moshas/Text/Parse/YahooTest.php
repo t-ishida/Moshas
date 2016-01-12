@@ -1,15 +1,9 @@
 <?php
-/**
- * Date: 15/12/21
- * Time: 18:53.
- */
-
-namespace Moshas\Parse;
+namespace Moshas\Text\Parse;
 
 
 use Loula\HttpRequest;
 use Loula\HttpResponse;
-use Moshas\Text\Parse\Yahoo;
 
 class YahooTest extends \PHPUnit_Framework_TestCase
 {
