@@ -2,6 +2,8 @@
 namespace Moshas\WebSite;
 
 
+use Moshas\Entity;
+
 class ScrapingDefinition
 {
     private $url = null;
@@ -28,5 +30,10 @@ class ScrapingDefinition
     public function getFieldDefinitions()
     {
         return $this->fieldDefinitions;
+    }
+
+    public function newEntity ()
+    {
+        return new Entity();
     }
 }

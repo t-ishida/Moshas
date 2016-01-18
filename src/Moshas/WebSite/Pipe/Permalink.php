@@ -19,9 +19,14 @@ class Permalink extends Pipe
     public function work($src)
     {
         $result = array();
+        $urls = array();
         foreach ($src as $entity) {
-            foreach ($this->scraper->scrape(new ScrapingDefinition($entity->getUrl(), $this->definitions)) as $article) {
-                $article->setUrl($entity->getUrl());
+            $urls[] = $entity->getUrl();
+        }
+        $urls = array_unique($urls);
+        foreach($urls as $url)  {
+            foreach ($this->scraper->scrape(new ScrapingDefinition($url, $this->definitions)) as $article) {
+                $article->setUrl($url);
                 $result[] = $article;
             }
         }
