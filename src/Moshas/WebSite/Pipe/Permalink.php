@@ -25,11 +25,31 @@ class Permalink extends Pipe
         }
         $urls = array_unique($urls);
         foreach($urls as $url)  {
-            foreach ($this->scraper->scrape(new ScrapingDefinition($url, $this->definitions)) as $article) {
+            foreach ($this->scraper->scrape($this->newScrapingDefinition($url)) as $article) {
                 $article->setUrl($url);
                 $result[] = $article;
             }
         }
         return $result;
+    }
+
+    public function newScrapingDefinition($url) {
+        return new ScrapingDefinition($url, $this->definitions);
+    }
+
+    /**
+     * @return Scraper|null
+     */
+    public function getScraper()
+    {
+        return $this->scraper;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getDefinitions()
+    {
+        return $this->definitions;
     }
 }

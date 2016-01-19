@@ -26,10 +26,14 @@ class LinkToNext extends Pipe
         }
         $urls = array_unique($urls);
         foreach($urls as $url)  {
-            foreach ($this->scraper->scrape(new ScrapingDefinition($url, $this->definitions)) as $article) {
+            foreach ($this->scraper->scrape($this->newScrapingDefinition($url)) as $article) {
                 $result[] = $article;
             }
         }
         return $result;
+    }
+
+    public function newScrapingDefinition($url) {
+        return new ScrapingDefinition($url, $this->definitions);
     }
 }

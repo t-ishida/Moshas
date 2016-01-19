@@ -33,12 +33,16 @@ class WhileToNext extends Pipe
         }
         $urls = array_unique($urls);
         foreach($urls as $url)  {
-            foreach ($this->scraper->scrape(new ScrapingDefinition($url, $this->fieldDefinitions)) as $article) {
+            foreach ($this->scraper->scrape($this->newScrapingDefinition($url)) as $article) {
                 foreach ($this->work(array($article)) as $article2) {
                     $result[] = $article2;
                 }
             }
         }
         return $result;
+    }
+
+    public function newScrapingDefinition($url) {
+        return new ScrapingDefinition($url, $this->fieldDefinitions);
     }
 }

@@ -94,6 +94,7 @@ class FieldDefinition
 
     public function setTo($text, $entity)
     {
+        if (!$text) return ;
         if ($this->getSettingTo() === FieldDefinition::SETTING_TO_BODY) {
             $entity->setBody($text);
         } elseif ($this->getSettingTo() === FieldDefinition::SETTING_TO_SUBJECT) {
