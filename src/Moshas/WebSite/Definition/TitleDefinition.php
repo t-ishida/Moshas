@@ -1,22 +1,12 @@
 <?php
 namespace Moshas\WebSite\Definition;
-use Moshas\WebSite\FieldDataBuilder;
-use Moshas\WebSite\FieldDefinition;
+use Moshas\WebSite\TextField;
 
-class TitleDefinition extends FieldDefinition implements FieldDataBuilder
+class TitleDefinition extends TextField
 {
-    public function __construct($query)
-    {
-        parent::__construct($query, $this);
-    }
-
     public function setTo($text, $entity)
     {
         $entity->setSubject($text);
     }
 
-    public function build($item)
-    {
-        return $item->textContent;
-    }
 }

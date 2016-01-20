@@ -1,9 +1,4 @@
 <?php
-/**
- * Date: 2016/01/20
- * Time: 10:59
- */
-
 namespace Moshas\WebSite\Definition;
 
 use Moshas\WebSite\FieldDataBuilder;
