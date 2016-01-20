@@ -1,9 +1,15 @@
 <?php
+/**
+ * Date: 2016/01/20
+ * Time: 10:59
+ */
+
 namespace Moshas\WebSite\Definition;
+
 use Moshas\WebSite\FieldDataBuilder;
 use Moshas\WebSite\FieldDefinition;
 
-class LinkDefinition extends FieldDefinition implements FieldDataBuilder
+class ProfileImageDefinition extends FieldDefinition implements FieldDataBuilder
 {
     private $hostName = null;
     public function __construct($query, $hostName = null)
@@ -14,7 +20,7 @@ class LinkDefinition extends FieldDefinition implements FieldDataBuilder
 
     public function setTo($text, $entity)
     {
-        $entity->setUrl($text);
+        $entity->setProfileImageUrl($text);
     }
 
     public function build($item)
@@ -23,7 +29,7 @@ class LinkDefinition extends FieldDefinition implements FieldDataBuilder
         $attributes = $item->attributes;
         if ($attributes === null || $attributes->length === 0) return $text;
         for ($j = 0; $j < $attributes->length; $j++) {
-            if ($attributes->item($j)->name !== 'href') continue;
+            if ($attributes->item($j)->name !== 'src') continue;
             $text .= $attributes->item($j)->nodeValue;
         }
         if ($this->hostName && strpos($text, 'http') !== 0) {

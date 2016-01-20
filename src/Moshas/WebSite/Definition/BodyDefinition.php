@@ -1,11 +1,22 @@
 <?php
 namespace Moshas\WebSite\Definition;
+use Moshas\WebSite\FieldDataBuilder;
 use Moshas\WebSite\FieldDefinition;
 
-class BodyDefinition extends FieldDefinition
+class BodyDefinition extends FieldDefinition implements FieldDataBuilder
 {
     public function __construct($query)
     {
-        parent::__construct($query, FieldDefinition::SETTING_TO_BODY, FieldDefinition::DATA_AS_TEXT, FieldDefinition::DATA_FROM_TEXT);
+        parent::__construct($query, $this);
+    }
+
+    public function setTo($text, $entity)
+    {
+        $entity->setBody($text);
+    }
+
+    public function build($item)
+    {
+        return $item->textContent;
     }
 }

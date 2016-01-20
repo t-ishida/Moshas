@@ -22,34 +22,16 @@ class FieldDecorator extends FieldDefinition
         return $this->innerField->getQuery();
     }
 
-    public function getSettingTo()
-    {
-        return $this->innerField->getSettingTo();
-    }
-
-    public function getDataAs()
-    {
-        return $this->innerField->getDataAs();
-    }
-
-    public function getDataFrom()
-    {
-        return $this->innerField->getDataFrom();
-    }
-
-    public function getAttributeName()
-    {
-        return $this->innerField->getAttributeName();
-    }
 
     public function setTo($text, $entity)
     {
-        $fn = $this->decorator;
-        $this->innerField->setTo($fn($text), $entity);
+        $this->innerField->setTo($text, $entity);
     }
 
     public function buildData($item)
     {
-        return $this->innerField->buildData($item);
+        $fn = $this->decorator;
+        $text = $this->innerField->buildData($item);
+        return $fn($text);
     }
 }

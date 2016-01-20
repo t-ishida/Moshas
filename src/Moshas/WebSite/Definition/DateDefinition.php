@@ -1,9 +1,16 @@
 <?php
+/**
+ * Date: 2016/01/20
+ * Time: 10:45
+ */
+
 namespace Moshas\WebSite\Definition;
+
+
 use Moshas\WebSite\FieldDataBuilder;
 use Moshas\WebSite\FieldDefinition;
 
-class TitleDefinition extends FieldDefinition implements FieldDataBuilder
+class DateDefinition extends FieldDefinition implements FieldDataBuilder
 {
     public function __construct($query)
     {
@@ -12,7 +19,7 @@ class TitleDefinition extends FieldDefinition implements FieldDataBuilder
 
     public function setTo($text, $entity)
     {
-        $entity->setSubject($text);
+        $entity->setCreatedAt($text);
     }
 
     public function build($item)
